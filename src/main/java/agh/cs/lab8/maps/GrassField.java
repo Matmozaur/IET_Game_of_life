@@ -1,6 +1,6 @@
 package agh.cs.lab8.maps;
 
-import agh.cs.lab8.Grass;
+import agh.cs.lab8.Plant;
 import agh.cs.lab8.utils.Vector2d;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class GrassField extends AbstractWorldMap {
 
-    private final Map<Vector2d, Grass> grass;
+    private final Map<Vector2d, Plant> grass;
 
     public GrassField(int width, int height, int n) {
         super(width, height);
@@ -21,7 +21,7 @@ public class GrassField extends AbstractWorldMap {
         List<Integer> places = ThreadLocalRandom.current().ints(0, this.height*this.width).distinct().limit(n).boxed().collect(Collectors.toList());
         for(int i:places) {
             Vector2d v = new Vector2d(i/this.height,i%this.height);
-            this.grass.put(v,new Grass(v));
+            this.grass.put(v,new Plant(v));
         }
     }
 

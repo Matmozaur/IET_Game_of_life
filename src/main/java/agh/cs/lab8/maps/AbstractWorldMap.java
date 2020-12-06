@@ -14,6 +14,14 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         return animals;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public AbstractWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
@@ -70,13 +78,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     public Vector2d[] borders() {
         return new Vector2d[] {new Vector2d(0,0), new Vector2d(this.width, this.height)};
-    }
-
-    @Override
-    public String toString() {
-        MapVisualizer mv = new MapVisualizer(this);
-        Vector2d[] borders = borders();
-        return (mv.draw(borders[0], borders[1]));
     }
 
     @Override

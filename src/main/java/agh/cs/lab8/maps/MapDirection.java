@@ -2,6 +2,11 @@ package agh.cs.lab8.maps;
 
 import agh.cs.lab8.utils.Vector2d;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public enum MapDirection {
     NORTH,
     NORTHEAST,
@@ -11,6 +16,10 @@ public enum MapDirection {
     SOUTHWEST,
     WEST,
     NORTHWEST;
+
+    public static List<MapDirection> VALUES = List.of(values());
+    public static int SIZE = VALUES.size();
+    private static final Random RANDOM = new Random();
 
     @Override
     public String toString() {
@@ -40,7 +49,7 @@ public enum MapDirection {
     }
 
     public MapDirection next(int n) {
-        n=n%8;
+        n = n%8;
         MapDirection direction = this;
         for(int i=0;i<n;i++) {
             direction = direction.next();
@@ -59,5 +68,14 @@ public enum MapDirection {
             case NORTHWEST -> (new Vector2d(1, -1));
             default -> (new Vector2d(0, 1));
         };
+    }
+
+    public static MapDirection randomDirection()  {
+        return VALUES.get(RANDOM.nextInt(SIZE));
+    }
+
+    public static List<MapDirection> randomDirections()  {
+        Collections.shuffle(VALUES);
+        return VALUES;
     }
 }

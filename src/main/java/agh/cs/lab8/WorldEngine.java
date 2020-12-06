@@ -13,13 +13,6 @@ public class WorldEngine implements IEngine {
 
     @Override
     public void run(MoveDirection[] directions) {
-        Animal[] animals = worldMap.getAnimals().values().toArray(new Animal[0]);
-        for(int i=0;i<directions.length;i++) {
-            if(directions[i] != null) {
-                Animal animal = animals[i%animals.length];
-                animal.move(directions[i]);
-            }
-        }
     }
 
 }
