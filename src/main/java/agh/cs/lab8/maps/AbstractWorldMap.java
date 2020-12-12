@@ -1,6 +1,6 @@
 package agh.cs.lab8.maps;
 
-import agh.cs.lab8.Animal;
+import agh.cs.lab8.map_elements.Animal;
 import agh.cs.lab8.utils.Vector2d;
 
 import java.util.*;
@@ -8,9 +8,23 @@ import java.util.*;
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected int width;
     protected int height;
-    protected Map<Vector2d, Animal> animals;
+    protected List<Animal> animals;
+    protected List<Animal> graveyard;
+    protected Map<Vector2d, List<Animal>> animalsPositions;
 
-    public Map<Vector2d, Animal> getAnimals() {
+    public AbstractWorldMap(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.animalsPositions = new LinkedHashMap<>();
+        this.animals = new LinkedList<>();
+        this.graveyard = new LinkedList<>();
+    }
+
+    public Map<Vector2d, List<Animal>> getAnimalsPositions() {
+        return animalsPositions;
+    }
+
+    public List<Animal> getAnimals() {
         return animals;
     }
 
@@ -22,30 +36,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         return height;
     }
 
-    public AbstractWorldMap(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.animals = new LinkedHashMap<>();
-    }
-
-    public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position);
-    }
-
-    public boolean place(Animal animal) {
-        if(!isOccupied(animal.getPosition())) {
-            this.animals.put(animal.getPosition(),animal);
-            return(true);
-        }
-        throw new IllegalArgumentException(animal.getPosition() + " is occupied!");
-    }
-
-    public boolean isOccupied(Vector2d position) {
-        return(objectAt(position) instanceof Animal);
-    }
-
-    public Object objectAt(Vector2d position) {
-        return animals.get(position);
+    public void place(Animal animal) {
+            this.animals.add(animal);
+        this.animalsPositions.computeIfAbsent(animal.getPosition(), k -> new LinkedList<>());
+            this.animalsPositions.get(animal.getPosition()).add(animal);
     }
 
     @Override
@@ -81,9 +75,36 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        Animal animal = this.animals.get(oldPosition);
-        this.animals.remove(oldPosition);
-        this.animals.put(newPosition, animal);
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
+        this.animalsPositions.get(oldPosition).remove(animal);
+        List<Animal> elements = this.animalsPositions.get(newPosition);
+        if(elements==null) {
+            this.animalsPositions.put(newPosition, new LinkedList<>());
+            this.animalsPositions.get(newPosition).add(animal);
+        }
+        else {
+            elements.add(animal);
+        }
+    }
+
+    @Override
+    public void dead(Animal animal) {
+        this.animalsPositions.get(animal.getPosition()).remove(animal);
+        this.animals.remove(animal);
+        this.graveyard.add(animal);
+    }
+
+    public boolean isOccupied(Vector2d position) {
+        if(this.animalsPositions.get(position) == null) {
+            return false;
+        }
+        else {
+            if(this.animalsPositions.get(position).size() == 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
 }

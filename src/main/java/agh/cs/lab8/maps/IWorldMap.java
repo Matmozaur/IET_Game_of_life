@@ -1,8 +1,9 @@
 package agh.cs.lab8.maps;
 
-import agh.cs.lab8.Animal;
+import agh.cs.lab8.map_elements.Animal;
 import agh.cs.lab8.utils.Vector2d;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,15 +15,9 @@ import java.util.Map;
  */
 public interface IWorldMap {
 
-    boolean canMoveTo(Vector2d position);
+    void place(Animal animal);
 
-    boolean place(Animal animal);
-
-    boolean isOccupied(Vector2d position);
-
-    Object objectAt(Vector2d position);
-
-    Map<Vector2d, Animal> getAnimals();
+    List<Animal> getAnimals();
 
     Vector2d targetPosition(Vector2d position);
 }
