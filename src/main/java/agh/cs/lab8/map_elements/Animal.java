@@ -25,6 +25,7 @@ public class Animal implements IMapElement {
         this.position = initialPosition;
         this.orientation = MapDirection.randomDirection();
         this.dna = DNAUtils.drawDNA();
+        this.energy = energy;
     }
 
     public Animal(AbstractWorldMap map, int energy, Vector2d initialPosition, List<Integer> dna, Animal parent1,
@@ -34,6 +35,7 @@ public class Animal implements IMapElement {
         this.position = initialPosition;
         this.orientation = MapDirection.randomDirection();
         this.dna = dna;
+        this.energy = energy;
         this.parents.add(parent1);
         this.parents.add(parent2);
     }
@@ -105,7 +107,7 @@ public class Animal implements IMapElement {
     }
 
     public void rotate(){
-        int rand_idx = ThreadLocalRandom.current().nextInt(0,Config.dnaLength+1);
+        int rand_idx = ThreadLocalRandom.current().nextInt(0,Config.dnaLength);
         this.orientation = this.orientation.next(this.dna.get(rand_idx));
     }
 

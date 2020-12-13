@@ -2,10 +2,7 @@ package agh.cs.lab8.maps;
 
 import agh.cs.lab8.utils.Vector2d;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public enum MapDirection {
     NORTH,
@@ -75,7 +72,8 @@ public enum MapDirection {
     }
 
     public static List<MapDirection> randomDirections()  {
-        Collections.shuffle(VALUES);
-        return VALUES;
+        List<MapDirection> modifiableList = new ArrayList<>(VALUES);
+        Collections.shuffle(modifiableList);
+        return modifiableList;
     }
 }

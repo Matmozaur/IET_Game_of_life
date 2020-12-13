@@ -5,16 +5,18 @@ import agh.cs.lab8.map_elements.Plant;
 import agh.cs.lab8.utils.Vector2d;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class Jungle extends AbstractWorldMap {
 
-    private final Map<Vector2d, Plant> plants;
+    private final Map<Vector2d, Plant> plants = new ConcurrentHashMap<>();
     protected Vector2d jungleLeftDown;
     protected Vector2d jungleRightUp;
     protected int startEnergy;
     protected int plantEnergy;
+    protected int day = 0;
 
 
     public Jungle(int width, int height, Vector2d jungleLeftDown, Vector2d jungleRightUp, int plantEnergy, int nPlants,
@@ -22,11 +24,30 @@ public class Jungle extends AbstractWorldMap {
         super(width, height);
         this.jungleLeftDown = jungleLeftDown;
         this.jungleRightUp = jungleRightUp;
-        this.plants = new LinkedHashMap<>();
         this.startEnergy = startEnergy;
         this.plantEnergy = plantEnergy;
         this.initPlants(nPlants);
         this.initAnimals(nAnimals);
+    }
+
+    public Vector2d getJungleLeftDown() {
+        return jungleLeftDown;
+    }
+
+    public Vector2d getJungleRightUp() {
+        return jungleRightUp;
+    }
+
+    public int getStartEnergy() {
+        return startEnergy;
+    }
+
+    public int getPlantEnergy() {
+        return plantEnergy;
+    }
+
+    public Map<Vector2d, Plant> getPlants() {
+        return plants;
     }
 
     private void initPlants(int n) {
@@ -84,8 +105,9 @@ public class Jungle extends AbstractWorldMap {
     }
 
     public void removeDeadAnimals() {
-        for(Animal animal:this.animals) {
-            animal.useEnergy();
+        for (int i = 0; i < this.animals.size(); i++)
+        {
+            animals.get(i).useEnergy();
         }
     }
 
@@ -113,13 +135,17 @@ public class Jungle extends AbstractWorldMap {
                     for(Animal animal:animalsAtPlace) {
                         animal.addEnergy(energy);
                     }
+                    this.plants.remove(entry.getKey());
                 }
             }
         }
     }
 
     public void mating() {
-        for (Map.Entry<Vector2d,List<Animal>> entry : this.animalsPositions.entrySet()){
+        long i = 0;
+        Iterator<Map.Entry<Vector2d,List<Animal>>> it = this.animalsPositions.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Vector2d,List<Animal>> entry = it.next();
             List<Animal> animalsAtPlace = this.animalsPositions.get(entry.getKey());
             if(animalsAtPlace != null) {
                 if(animalsAtPlace.size() >= 2) {

@@ -4,6 +4,7 @@ import agh.cs.lab8.map_elements.Animal;
 import agh.cs.lab8.utils.Vector2d;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected int width;
@@ -15,7 +16,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public AbstractWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.animalsPositions = new LinkedHashMap<>();
+        this.animalsPositions = new ConcurrentHashMap<>();
         this.animals = new LinkedList<>();
         this.graveyard = new LinkedList<>();
     }
@@ -55,7 +56,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             }
         }
         else {
-            if(position.getX() < height && position.getY() >= 0) {
+            if(position.getY() < height && position.getY() >= 0) {
                 int x = position.getX()%width;
                 if (x<0) x += width;
                 return new Vector2d(x, position.getY());

@@ -1,20 +1,25 @@
 package agh.cs.lab8;
 
-import agh.cs.lab8.map_elements.Animal;
-import agh.cs.lab8.maps.*;
-import agh.cs.lab8.utils.Vector2d;
+import agh.cs.lab8.visualisation.Starter;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.io.FileNotFoundException;
 
 public class World {
 
     public static void main(String[] args) {
-        Map<Integer, List<Integer>> m =new LinkedHashMap<>();
-        m.put(0, new LinkedList<>());
-        System.out.println(m.get(0));
-        System.out.println(m.get(1));
+
+        try {
+//            PropertiesLoader properties = PropertiesLoader.loadPropFromFile();
+            Integer[] defaultMapProperties = {
+                    10,10,4,4,6,6,10,10,100,10,2000
+            };
+            Starter menu = new Starter();
+            menu.startSimulation(defaultMapProperties);
+
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex);
+            return;
+        }
     }
+
 }
