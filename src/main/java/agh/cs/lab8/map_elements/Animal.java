@@ -136,16 +136,17 @@ public class Animal implements IMapElement {
         animal1.energy -= 3*animal1.energy/4;
         animal2.energy -= 3*animal2.energy/4;
         Vector2d position = animal1.position;
-//        TODO
-//        for(MapDirection d:MapDirection.randomDirections()) {
-//            Vector2d future_position = animal1.map.targetPosition(position.add(d.toUnitVector()));
-//            if (animal1.map.isOccupied(future_position)) {
-//                position = future_position;
-//                break;
-//            }
-//        }
-        position = animal1.map.targetPosition(position.add(MapDirection.randomDirections().get(0).toUnitVector()));
-        Animal child = new Animal(animal1.map, animal1.energy/2+animal2.energy/2, position,
+        for(MapDirection d:MapDirection.randomDirections()) {
+            Vector2d future_position = animal1.map.targetPosition(position.add(d.toUnitVector()));
+            if (!animal1.map.isOccupied(future_position)) {
+                position = future_position;
+                break;
+            }
+        }
+        if(position == animal1.position) {
+            position = animal1.map.targetPosition(position.add(MapDirection.randomDirections().get(0).toUnitVector()));
+        }
+        Animal child = new Animal(animal1.map, energy, position,
                 DNAUtils.recombineDNA(animal1.dna, animal2.dna), animal1, animal2);
         animal1.kids.add(child);
         animal2.kids.add(child);

@@ -11,25 +11,42 @@ import java.awt.event.ActionListener;
 
 
 public class StartingPanel extends JPanel implements ActionListener {
-    public static final int HEIGHT = 60;
-    public static final int WIDTH = 150;
+    public static final int HEIGHT = 120;
+    public static final int WIDTH = 250;
     private final Integer[] params;
     private int counter=1;
-
+    JButton startButton;
+    JButton startButton2
+;
     public StartingPanel(Integer[] params) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.params = params;
-        JButton startButton = new JButton("Start Simulation");
+        startButton = new JButton("Start Simulation");
         startButton.addActionListener(this);
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(startButton);
         add(buttonPanel);
+        startButton2 = new JButton("Start Two Simulations");
+        startButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                starting();
+                starting();
+            }
+        });
+        JPanel buttonPanel2 = new JPanel();
+        buttonPanel2.add(startButton2);
+        add(buttonPanel2);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        starting();
+    }
+
+    private void starting() {
         Jungle junge = new Jungle(
                 params[0],
                 params[1],

@@ -14,6 +14,7 @@ public class Simulator implements ActionListener {
     public JFrame frame;
     public WorldPanel worldPanel;
     public StatsPanel statsPanel;
+    public UserPanel userPanel;
     public Timer timer;
     private int id;
 
@@ -34,6 +35,9 @@ public class Simulator implements ActionListener {
         statsPanel = new StatsPanel(jungle, this, id, n);
         statsPanel.setSize(new Dimension(1, 1));
         frame.add(statsPanel);
+        userPanel = new UserPanel(jungle, this);
+        userPanel.setSize(new Dimension(1, 1));
+        frame.add(userPanel);
     }
 
     public void start() {
@@ -44,6 +48,7 @@ public class Simulator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         worldPanel.repaint();
         statsPanel.repaint();
+        userPanel.repaint();
         jungle.removeDeadAnimals();
         jungle.moveAnimals();
         jungle.eating();

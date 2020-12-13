@@ -10,7 +10,7 @@ public class Starter {
     public Starter() {
 
         menuFrame = new JFrame();
-        menuFrame.setSize(150, 60);
+        menuFrame.setSize(250, 120);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setLocationRelativeTo(null);
 
