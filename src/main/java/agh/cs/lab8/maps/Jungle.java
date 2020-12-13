@@ -16,7 +16,7 @@ public class Jungle extends AbstractWorldMap {
     protected Vector2d jungleRightUp;
     protected int startEnergy;
     protected int plantEnergy;
-    protected int day = 0;
+    public int day = 0;
 
 
     public Jungle(int width, int height, Vector2d jungleLeftDown, Vector2d jungleRightUp, int plantEnergy, int nPlants,
@@ -105,6 +105,7 @@ public class Jungle extends AbstractWorldMap {
     }
 
     public void removeDeadAnimals() {
+        day += 1;
         for (int i = 0; i < this.animals.size(); i++)
         {
             animals.get(i).useEnergy();

@@ -5,6 +5,8 @@ import agh.cs.lab8.utils.Vector2d;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected int width;
@@ -12,6 +14,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     protected List<Animal> animals;
     protected List<Animal> graveyard;
     protected Map<Vector2d, List<Animal>> animalsPositions;
+    private int counter =0;
 
     public AbstractWorldMap(int width, int height) {
         this.width = width;
@@ -27,6 +30,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     public List<Animal> getAnimals() {
         return animals;
+    }
+
+    public List<Animal> getGraveyard() {
+        return graveyard;
     }
 
     public int getWidth() {
@@ -107,5 +114,26 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
                 return true;
             }
         }
+    }
+
+
+    public String mostCommonGenotype() {
+        if(animals.size() == 0) {
+            return "";
+        }
+        List<String> genotypes = animals.stream().map(Animal::getDnaString).collect(Collectors.toList());
+        Optional<Map.Entry<String, Long>> result = genotypes.stream().collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue));
+        return result.get().getKey();
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void updateCounter() {
+        this.counter += 1;
     }
 }

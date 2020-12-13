@@ -42,11 +42,16 @@ public class WorldPanel extends JPanel {
             int x = entry.getKey().getX() * widthScale;
             g.fillRect(x, y, widthScale, heightScale);
         }
+        Font drawFont = new Font("Arial", Font.BOLD, 22);
+        g.setFont(drawFont);
         for (Animal a : jungle.getAnimals()) {
             g.setColor(Color.red);
             int y = a.getPosition().getY() * heightScale;
             int x = a.getPosition().getX() * widthScale;
             g.fillOval(x, y, widthScale, heightScale);
+            g.setColor(Color.BLACK);
+            g.drawString(""+a.getId(), a.getPosition().getX() * widthScale + widthScale/3,
+                    a.getPosition().getY() * heightScale + heightScale/2);
         }
     }
 

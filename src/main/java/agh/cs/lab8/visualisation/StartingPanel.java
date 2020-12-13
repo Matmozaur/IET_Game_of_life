@@ -1,5 +1,6 @@
 package agh.cs.lab8.visualisation;
 
+import agh.cs.lab8.map_elements.Animal;
 import agh.cs.lab8.maps.Jungle;
 import agh.cs.lab8.utils.Vector2d;
 
@@ -12,14 +13,14 @@ import java.awt.event.ActionListener;
 public class StartingPanel extends JPanel implements ActionListener {
     public static final int HEIGHT = 60;
     public static final int WIDTH = 150;
-    private Integer[] params;
-    private JButton startButton;
+    private final Integer[] params;
+    private int counter=1;
 
     public StartingPanel(Integer[] params) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.params = params;
-        startButton = new JButton("Start Simulation");
+        JButton startButton = new JButton("Start Simulation");
         startButton.addActionListener(this);
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(startButton);
@@ -39,7 +40,9 @@ public class StartingPanel extends JPanel implements ActionListener {
                 params[8],
                 params[9]
         );
-        Simulator simulator = new Simulator(junge, params[10]);
+        Animal.moveEnergy = params[10];
+        Simulator simulator = new Simulator(junge, params[11], counter, params[11]);
+        counter += 1;
         simulator.start();
     }
 }

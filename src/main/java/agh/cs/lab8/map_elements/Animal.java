@@ -13,6 +13,9 @@ public class Animal implements IMapElement {
     private Vector2d position;
     private final AbstractWorldMap map;
     private int energy;
+    public static int moveEnergy=1;
+    private int id;
+    private int daysAlive=0;
     private final List<Integer> dna;
     private final List<IPositionChangeObserver> observers = new LinkedList<>();
     private final List<Animal> parents = new LinkedList<>();
@@ -26,6 +29,8 @@ public class Animal implements IMapElement {
         this.orientation = MapDirection.randomDirection();
         this.dna = DNAUtils.drawDNA();
         this.energy = energy;
+        this.id = map.getCounter();
+        map.updateCounter();
     }
 
     public Animal(AbstractWorldMap map, int energy, Vector2d initialPosition, List<Integer> dna, Animal parent1,
@@ -38,6 +43,8 @@ public class Animal implements IMapElement {
         this.energy = energy;
         this.parents.add(parent1);
         this.parents.add(parent2);
+        this.id = map.getCounter();
+        map.updateCounter();
     }
 
     public MapDirection getOrientation() {
@@ -55,6 +62,18 @@ public class Animal implements IMapElement {
 
     public List<Integer> getDna() {
         return dna;
+    }
+
+    public List<Animal> getKids() {
+        return kids;
+    }
+
+    public int getDaysAlive() {
+        return daysAlive;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -100,7 +119,8 @@ public class Animal implements IMapElement {
     }
 
     public void useEnergy(){
-        this.energy -= 1;
+        this.daysAlive += 1;
+        this.energy -= moveEnergy;
         if(this.energy == 0) {
             dead();
         }
@@ -112,9 +132,9 @@ public class Animal implements IMapElement {
     }
 
     public static Animal reproduce(Animal animal1, Animal animal2) {
-        int energy = animal1.energy/2+animal2.energy/2;
-        animal1.energy -= animal1.energy/2;
-        animal2.energy -= animal2.energy/2;
+        int energy = animal1.energy/4+animal2.energy/4;
+        animal1.energy -= 3*animal1.energy/4;
+        animal2.energy -= 3*animal2.energy/4;
         Vector2d position = animal1.position;
 //        TODO
 //        for(MapDirection d:MapDirection.randomDirections()) {
@@ -135,6 +155,10 @@ public class Animal implements IMapElement {
 
     public void addEnergy(int energy) {
         this.energy += energy;
+    }
+
+    public String getDnaString() {
+        return dna.toString();
     }
 
 }

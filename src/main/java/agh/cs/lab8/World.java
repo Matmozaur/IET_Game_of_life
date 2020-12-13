@@ -11,7 +11,11 @@ public class World {
         try {
 //            PropertiesLoader properties = PropertiesLoader.loadPropFromFile();
             Integer[] defaultMapProperties = {
-                    10,10,4,4,6,6,10,10,100,10,2000
+                    10,10,4,4,6,6,
+                    10,10,
+                    100,10,1,
+                    50,
+                    100
             };
             Starter menu = new Starter();
             menu.startSimulation(defaultMapProperties);
