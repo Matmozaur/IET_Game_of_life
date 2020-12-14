@@ -3,7 +3,6 @@ package agh.cs.lab8.visualisation;
 import agh.cs.lab8.maps.Jungle;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

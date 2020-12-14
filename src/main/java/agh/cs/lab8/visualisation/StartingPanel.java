@@ -58,7 +58,7 @@ public class StartingPanel extends JPanel implements ActionListener {
                 params[9]
         );
         Animal.moveEnergy = params[10];
-        Simulator simulator = new Simulator(junge, params[11], counter, params[11]);
+        Simulator simulator = new Simulator(junge, params[11], counter, params[12]);
         counter += 1;
         simulator.start();
     }

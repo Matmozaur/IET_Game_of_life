@@ -45,11 +45,17 @@ public class WorldPanel extends JPanel {
         Font drawFont = new Font("Arial", Font.BOLD, 22);
         g.setFont(drawFont);
         for (Animal a : jungle.getAnimals()) {
-            g.setColor(Color.red);
+            int e = 255 - Math.min(a.getEnergy(),255);
+            g.setColor(new Color(e, 0, 0));
             int y = a.getPosition().getY() * heightScale;
             int x = a.getPosition().getX() * widthScale;
             g.fillOval(x, y, widthScale, heightScale);
-            g.setColor(Color.BLACK);
+            if(e>100) {
+                g.setColor(Color.BLACK);
+            }
+            else {
+                g.setColor(Color.WHITE);
+            }
             g.drawString(""+a.getId(), a.getPosition().getX() * widthScale + widthScale/3,
                     a.getPosition().getY() * heightScale + heightScale/2);
         }

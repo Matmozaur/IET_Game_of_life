@@ -1,19 +1,14 @@
 package agh.cs.lab8.visualisation;
 
 import agh.cs.lab8.map_elements.Animal;
-import agh.cs.lab8.map_elements.Plant;
 import agh.cs.lab8.maps.Jungle;
-import agh.cs.lab8.utils.Vector2d;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
 
 public class StatsPanel extends JPanel {
 
@@ -105,7 +100,6 @@ public class StatsPanel extends JPanel {
             g.drawString("" + dna.substring(63, 95), 10, 410);
         }
         if(n == jungle.day) {
-            System.out.println("xxxxxx");
             try {
                 File myObj = new File("raport"+id+".txt");
                 if (myObj.createNewFile()) {

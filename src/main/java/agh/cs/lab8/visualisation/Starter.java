@@ -2,7 +2,6 @@ package agh.cs.lab8.visualisation;
 
 import javax.swing.*;
 
-import javax.swing.*;
 
 public class Starter {
     public JFrame menuFrame;

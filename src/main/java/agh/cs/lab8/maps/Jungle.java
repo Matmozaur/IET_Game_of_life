@@ -151,6 +151,7 @@ public class Jungle extends AbstractWorldMap {
             if(animalsAtPlace != null) {
                 if(animalsAtPlace.size() >= 2) {
                     animalsAtPlace.sort(Comparator.comparing(Animal::getEnergy));
+                    Collections.reverse(animalsAtPlace);
                     if(animalsAtPlace.get(1).getEnergy() >= this.startEnergy/2) {
                         this.place(Animal.reproduce(animalsAtPlace.get(0), animalsAtPlace.get(1)));
                     }
