@@ -16,10 +16,6 @@ public class Plant implements IMapElement {
         return position;
     }
 
-    public int getEnergy() {
-        return energy;
-    }
-
     @Override
     public String toString() {
         return "*";

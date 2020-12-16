@@ -60,9 +60,9 @@ public enum MapDirection {
             case SOUTH -> (new Vector2d(0, -1));
             case WEST -> (new Vector2d(-1, 0));
             case NORTHEAST -> (new Vector2d(1, 1));
-            case SOUTHEAST -> (new Vector2d(-1, 1));
+            case SOUTHEAST -> (new Vector2d(1, -1));
             case SOUTHWEST -> (new Vector2d(-1, -1));
-            case NORTHWEST -> (new Vector2d(1, -1));
+            case NORTHWEST -> (new Vector2d(-1, 1));
             default -> (new Vector2d(0, 1));
         };
     }

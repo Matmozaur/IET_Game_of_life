@@ -20,8 +20,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         this.width = width;
         this.height = height;
         this.animalsPositions = new ConcurrentHashMap<>();
-        this.animals = new LinkedList<>();
-        this.graveyard = new LinkedList<>();
+        this.animals = Collections.synchronizedList(new LinkedList<>());
+        this.graveyard = Collections.synchronizedList(new LinkedList<>());
     }
 
     public Map<Vector2d, List<Animal>> getAnimalsPositions() {

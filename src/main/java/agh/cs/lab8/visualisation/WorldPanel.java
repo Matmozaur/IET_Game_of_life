@@ -7,6 +7,7 @@ import agh.cs.lab8.utils.Vector2d;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.Map;
 
 public class WorldPanel extends JPanel {
@@ -44,21 +45,25 @@ public class WorldPanel extends JPanel {
         }
         Font drawFont = new Font("Arial", Font.BOLD, 22);
         g.setFont(drawFont);
-        for (Animal a : jungle.getAnimals()) {
-            int e = 255 - Math.min(a.getEnergy(),255);
-            g.setColor(new Color(e, 0, 0));
-            int y = a.getPosition().getY() * heightScale;
-            int x = a.getPosition().getX() * widthScale;
-            g.fillOval(x, y, widthScale, heightScale);
-            if(e>100) {
-                g.setColor(Color.BLACK);
+        for(List<Animal> l: jungle.getAnimalsPositions().values()) {
+            StringBuilder str = new StringBuilder();
+            for (Animal a : l) {
+                int e = 255 - Math.min(a.getEnergy(),255);
+                g.setColor(new Color(e, 0, 0));
+                int y = a.getPosition().getY() * heightScale;
+                int x = a.getPosition().getX() * widthScale;
+                g.fillOval(x, y, widthScale, heightScale);
+                if(e>100) {
+                    g.setColor(Color.BLACK);
+                    }
+                else {
+                    g.setColor(Color.WHITE);
+                    }
+                str.append(a.getId()).append(" ");
+                g.drawString(str.toString(), a.getPosition().getX() * widthScale + widthScale/3,
+                        a.getPosition().getY() * heightScale + heightScale/2);
+                }
             }
-            else {
-                g.setColor(Color.WHITE);
-            }
-            g.drawString(""+a.getId(), a.getPosition().getX() * widthScale + widthScale/3,
-                    a.getPosition().getY() * heightScale + heightScale/2);
         }
-    }
 
 }

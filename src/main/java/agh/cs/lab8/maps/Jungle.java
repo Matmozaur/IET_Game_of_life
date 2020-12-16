@@ -38,14 +38,6 @@ public class Jungle extends AbstractWorldMap {
         return jungleRightUp;
     }
 
-    public int getStartEnergy() {
-        return startEnergy;
-    }
-
-    public int getPlantEnergy() {
-        return plantEnergy;
-    }
-
     public Map<Vector2d, Plant> getPlants() {
         return plants;
     }

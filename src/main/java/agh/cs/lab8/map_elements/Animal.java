@@ -47,10 +47,6 @@ public class Animal implements IMapElement {
         map.updateCounter();
     }
 
-    public MapDirection getOrientation() {
-        return orientation;
-    }
-
     @Override
     public Vector2d getPosition() {
         return position;
@@ -96,14 +92,6 @@ public class Animal implements IMapElement {
         Vector2d future_position = map.targetPosition(this.position.add(this.orientation.toUnitVector()));
         this.position = future_position;
         this.positionChanged(oldPosition, future_position, this);
-    }
-
-    void addObserver(IPositionChangeObserver observer) {
-        this.observers.add(observer);
-    }
-
-    void removeObserver(IPositionChangeObserver observer) {
-        this.observers.remove(observer);
     }
 
     void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
