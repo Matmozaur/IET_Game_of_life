@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 public class StatsPanel extends JPanel {
@@ -37,6 +38,8 @@ public class StatsPanel extends JPanel {
         g.setColor(Color.BLACK);
         Font drawFont = new Font("Arial", Font.BOLD, 22);
         g.setFont(drawFont);
+
+        DecimalFormat f = new DecimalFormat("##.00");
         String tmp = "Day "+jungle.day;
         raport.append(tmp).append('\n');
         g.drawString(tmp, 0,20);
@@ -63,28 +66,28 @@ public class StatsPanel extends JPanel {
         tmp = "Mean life span among dead: ";
         raport.append(tmp).append('\n');
         g.drawString(tmp, 0,200);
-        tmp = ""+jungle.getAnimals().stream()
+        tmp = ""+f.format(jungle.getGraveyard().stream()
                 .mapToInt(Animal::getDaysAlive)
                 .average()
-                .orElse(0);
+                .orElse(0));
         raport.append(tmp).append('\n');
         g.drawString(tmp, 10,220);
         tmp = "Mean energy: ";
         raport.append(tmp).append('\n');
         g.drawString(tmp, 0,250);
-        tmp = ""+jungle.getAnimals().stream()
+        tmp = ""+f.format(jungle.getAnimals().stream()
                 .mapToInt(Animal::getEnergy)
                 .average()
-                .orElse(0);
+                .orElse(0));
         raport.append(tmp).append('\n');
         g.drawString(tmp, 10,270);
         tmp = "Mean number of kids: ";
         raport.append(tmp).append('\n');
         g.drawString(tmp, 0,300);
-        tmp = ""+jungle.getAnimals().stream()
+        tmp = ""+f.format(jungle.getAnimals().stream()
                 .mapToInt(a -> a.getKids().size())
                 .average()
-                .orElse(0);
+                .orElse(0));
         raport.append(tmp).append('\n');
         g.drawString(tmp, 10,320);
         tmp = "Most common genotype: ";

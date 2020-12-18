@@ -14,11 +14,10 @@ public class Animal implements IMapElement {
     private final AbstractWorldMap map;
     private int energy;
     public static int moveEnergy=1;
-    private int id;
+    private final int id;
     private int daysAlive=0;
     private final List<Integer> dna;
     private final List<IPositionChangeObserver> observers = new LinkedList<>();
-    private final List<Animal> parents = new LinkedList<>();
     private final List<Animal> kids = new LinkedList<>();
 
 
@@ -33,16 +32,13 @@ public class Animal implements IMapElement {
         map.updateCounter();
     }
 
-    public Animal(AbstractWorldMap map, int energy, Vector2d initialPosition, List<Integer> dna, Animal parent1,
-                  Animal parent2) {
+    public Animal(AbstractWorldMap map, int energy, Vector2d initialPosition, List<Integer> dna) {
         this.map = map;
         this.observers.add(map);
         this.position = initialPosition;
         this.orientation = MapDirection.randomDirection();
         this.dna = dna;
         this.energy = energy;
-        this.parents.add(parent1);
-        this.parents.add(parent2);
         this.id = map.getCounter();
         map.updateCounter();
     }
@@ -54,10 +50,6 @@ public class Animal implements IMapElement {
 
     public int getEnergy() {
         return energy;
-    }
-
-    public List<Integer> getDna() {
-        return dna;
     }
 
     public List<Animal> getKids() {
@@ -91,10 +83,10 @@ public class Animal implements IMapElement {
         Vector2d oldPosition = this.position;
         Vector2d future_position = map.targetPosition(this.position.add(this.orientation.toUnitVector()));
         this.position = future_position;
-        this.positionChanged(oldPosition, future_position, this);
+        this.positionChanged(oldPosition, future_position);
     }
 
-    void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
+    void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         for (IPositionChangeObserver o:this.observers) {
             o.positionChanged(oldPosition, newPosition, this);
         }
@@ -136,7 +128,7 @@ public class Animal implements IMapElement {
             position = animal1.map.targetPosition(position.add(MapDirection.randomDirections().get(0).toUnitVector()));
         }
         Animal child = new Animal(animal1.map, energy, position,
-                DNAUtils.recombineDNA(animal1.dna, animal2.dna), animal1, animal2);
+                DNAUtils.recombineDNA(animal1.dna, animal2.dna));
         animal1.kids.add(child);
         animal2.kids.add(child);
         return child;

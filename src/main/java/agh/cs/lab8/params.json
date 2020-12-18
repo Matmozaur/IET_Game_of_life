@@ -7,6 +7,6 @@
   "start_energy": 50,
   "number_of_animals": 10,
   "move_energy": 1,
-  "delay": 500,
+  "delay": 100,
   "days_before_snapshot": 100
 }

@@ -16,6 +16,7 @@ public class Simulator implements ActionListener {
     public StatsPanel statsPanel;
     public UserPanel userPanel;
     public Timer timer;
+    public boolean followFlag=false;
     private int id;
 
 
@@ -54,6 +55,7 @@ public class Simulator implements ActionListener {
         jungle.eating();
         jungle.mating();
         jungle.addNewPlants();
+
     }
 
 }

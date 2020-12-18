@@ -151,4 +151,31 @@ public class Jungle extends AbstractWorldMap {
             }
         }
     }
+
+    public String getAnimalInfo(int id) {
+        StringBuilder report = new StringBuilder("");
+        Animal animal = animals.stream().filter(obj -> obj.getId() == id).findFirst().orElse(null);
+        if(animal != null) {
+            report.append("Id: ").append(id).append("\n");
+            report.append("DNA: ").append(animal.getDnaString()).append("\n");
+            report.append("Age: ").append(animal.getDaysAlive()).append("\n");
+            report.append("Position: ").append(animal.getPosition()).append("\n");
+            report.append("Number of kids: ").append(animal.getKids().size());
+        }
+        else {
+            animal = graveyard.stream().filter(obj -> obj.getId() == id).findFirst().orElse(null);
+            if(animal != null) {
+                report.append("This animal is dead!").append("\n");
+                report.append("Id: ").append(id).append("\n");
+                report.append("DNA: ").append(animal.getDnaString()).append("\n");
+                report.append("Age: ").append(animal.getDaysAlive()).append("\n");
+                report.append("Energy: ").append(animal.getEnergy()).append("\n");
+                report.append("Number of kids: ").append(animal.getKids().size());
+            }
+            else {
+                report.append("There is no animal with id ").append(id);
+            }
+        }
+        return report.toString();
+    }
 }
