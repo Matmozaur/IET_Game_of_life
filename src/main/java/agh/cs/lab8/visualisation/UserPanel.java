@@ -98,7 +98,7 @@ public class UserPanel extends JPanel {
             JOptionPane.showMessageDialog(null, info);
         }
         catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Wrong id format!");
+            JOptionPane.showMessageDialog(null, "Wrong input format!");
         }
     }
 
@@ -114,6 +114,8 @@ public class UserPanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "There is no such animal alive!");
                 }
                 else {
+                    int n = Integer.parseInt(nEpochs.getText());
+                    simulator.follow(animal, n);
                     stopButton.setText("Stop");
                     simulator.timer.start();
                     animalID.setEnabled(false);
@@ -123,7 +125,7 @@ public class UserPanel extends JPanel {
                 }
             }
             catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Wrong id format!");
+                JOptionPane.showMessageDialog(null, "Wrong input format!");
             }
         }
     }

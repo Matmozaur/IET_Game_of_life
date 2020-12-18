@@ -159,8 +159,10 @@ public class Jungle extends AbstractWorldMap {
             report.append("Id: ").append(id).append("\n");
             report.append("DNA: ").append(animal.getDnaString()).append("\n");
             report.append("Age: ").append(animal.getDaysAlive()).append("\n");
+            report.append("Energy: ").append(animal.getEnergy()).append("\n");
             report.append("Position: ").append(animal.getPosition()).append("\n");
-            report.append("Number of kids: ").append(animal.getKids().size());
+            report.append("Number of kids: ").append(animal.getKids().size()).append("\n");
+            report.append("Number of Descendant: ").append(animal.numberOfDescendant());
         }
         else {
             animal = graveyard.stream().filter(obj -> obj.getId() == id).findFirst().orElse(null);
@@ -168,9 +170,9 @@ public class Jungle extends AbstractWorldMap {
                 report.append("This animal is dead!").append("\n");
                 report.append("Id: ").append(id).append("\n");
                 report.append("DNA: ").append(animal.getDnaString()).append("\n");
-                report.append("Age: ").append(animal.getDaysAlive()).append("\n");
-                report.append("Energy: ").append(animal.getEnergy()).append("\n");
-                report.append("Number of kids: ").append(animal.getKids().size());
+                report.append("Died in the age of: ").append(animal.getDaysAlive()).append("\n");
+                report.append("Number of kids: ").append(animal.getKids().size()).append("\n");
+                report.append("Number of Descendant: ").append(animal.numberOfDescendant());
             }
             else {
                 report.append("There is no animal with id ").append(id);

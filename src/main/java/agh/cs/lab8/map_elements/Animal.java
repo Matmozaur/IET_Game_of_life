@@ -18,7 +18,7 @@ public class Animal implements IMapElement {
     private int daysAlive=0;
     private final List<Integer> dna;
     private final List<IPositionChangeObserver> observers = new LinkedList<>();
-    private final List<Animal> kids = new LinkedList<>();
+    private final LinkedList<Animal> kids = new LinkedList<>();
 
 
     public Animal(AbstractWorldMap map, int energy, Vector2d initialPosition) {
@@ -142,4 +142,20 @@ public class Animal implements IMapElement {
         return dna.toString();
     }
 
+    public int numberOfDescendant() {
+        int result =0;
+        HashSet<Animal> animalSet = new HashSet<>();
+        LinkedList<Animal> queue = (LinkedList) kids.clone();
+        while (queue.size() != 0) {
+            Animal a = queue.poll();
+            animalSet.add(a);
+            result += 1;
+            for(int i=0;i<a.kids.size();i++) {
+                if(!animalSet.contains(a.kids.get(i))) {
+                    queue.add(a.kids.get(i));
+                }
+            }
+        }
+        return result;
+    }
 }
